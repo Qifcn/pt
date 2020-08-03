@@ -1,0 +1,27 @@
+version: "3.7"
+services:
+  tinc:
+    image: vimagick/tinc
+    container_name: plusls-tinc
+    ports:
+      - "655:655/tcp"
+      - "655:655/udp"
+    volumes:
+      - ./tinc:/etc/tinc
+    environment:
+      - IP_ADDR=47.112.142.54
+      - ADDRESS=10.0.0.6/32
+      - NETMASK=255.255.255.0
+      - NETWORK=10.0.0.0/24
+      - RUNMODE=imlala
+      - NETNAME=nas-tinc
+    cap_add:
+      - NET_ADMIN
+    dns: 8.8.8.8
+    restart: always
+networks:
+  default:
+    name: nas-tinc
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.name: nas-tinc
